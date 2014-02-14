@@ -1,11 +1,16 @@
-
+/**
+ * A JAnswerButtons object represents the 3 answer buttons 
+ * @author Claudia Eisbrenner
+ * @version 1.0
+ * 
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
 
 
 public class JAnswerButtons extends JPanel implements ActionListener{
@@ -28,27 +33,40 @@ public class JAnswerButtons extends JPanel implements ActionListener{
 
 	}
 	
-	void createComponentAnswers(Zoo zoo){
+	/**
+	   * creates the three answer buttons
+	   *
+	   */
+	void createAnswerButtons(Zoo zoo){
 		
 		String[] threeAnswers = zoo.getThreeAnswers();
 	
-		this.answer1 = new JRadioButton();
-		this.answer1.setText(threeAnswers[0]);
+		//button 1
+		answer1 = new JRadioButton();
+		answer1.setText(threeAnswers[0]);
 	    answer1.setMnemonic(KeyEvent.VK_B);
 	    answer1.setActionCommand(toString());
 	    answer1.addActionListener(this);
+	    answer1.setHorizontalAlignment(SwingConstants.LEFT);
+	    answer1.setVerticalTextPosition(SwingConstants.BOTTOM);
 	    
-	    this.answer2 = new JRadioButton();
-	    this.answer2.setText(threeAnswers[1]);
+	    //button 2
+	    answer2 = new JRadioButton();
+	    answer2.setText(threeAnswers[1]);
 	    answer2.setMnemonic(KeyEvent.VK_B);
 	    answer2.setActionCommand(toString());
 	    answer2.addActionListener(this);
+	    answer2.setHorizontalAlignment(SwingConstants.LEFT);
+	    answer2.setVerticalTextPosition(SwingConstants.BOTTOM);
 	    
-	    this.answer3 = new JRadioButton();
-	    this.answer3.setText(threeAnswers[2]);
+	    //button 3
+	    answer3 = new JRadioButton();
+	    answer3.setText(threeAnswers[2]);
 	    answer3.setMnemonic(KeyEvent.VK_B);
 	    answer3.setActionCommand(toString());
 	    answer3.addActionListener(this);
+	    answer3.setHorizontalAlignment(SwingConstants.LEFT);
+	
 	    
    }
 	
@@ -56,34 +74,29 @@ public class JAnswerButtons extends JPanel implements ActionListener{
 		return isNothingSelected;
 	}
 
-   public void setNothingSelected(boolean isNothingSelected) {
-	this.isNothingSelected = isNothingSelected;
-}
+   public void setNothingSelected(boolean isNothSelected) {
+	    isNothingSelected = isNothSelected;
+   }
 
-void checkIfCorrectAnswer(String text){
-	   if (text.equals(zoo.getCorrectAnswer())){
-		   System.out.print("Hit");
-		   this.isAnswerCorrect = true;
+   void isAnswerCorrect(String answerButtonText){
+	   if (answerButtonText.equals(zoo.getCorrectAnswer())){
+		   isAnswerCorrect = true;
 	   }
 	   else{
-		   System.out.print("No"); 
-		   this.isAnswerCorrect = false;
+		   isAnswerCorrect = false;
 	   }
    }
 	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 	    	JRadioButton button = (JRadioButton) ae.getSource();
-	    	checkIfCorrectAnswer(button.getText());  
-	    	if(this.frame.getStatus() == RunZooGame.JZooEvent.E_NOTHINGSELECTED){
-	    		this.frame.setStatus(RunZooGame.JZooEvent.E_INITIAL);
+	    	isAnswerCorrect(button.getText());  
+	    	if(frame.getStatus() == Game.JZooStatus.E_NOTHINGSELECTED){
+	    		frame.setStatus(Game.JZooStatus.E_INITIAL);
 	    	}
-	    	this.isNothingSelected = false;
-	    	this.frame.getTextLabel().setVisible(false);
+	    	isNothingSelected = false;
+	    	frame.getTextLabel().setVisible(false);
 	    	button.setSelected(false);
-	    	
-	    	
-		
 	}
 	
 
@@ -98,7 +111,7 @@ void checkIfCorrectAnswer(String text){
 		return this.answer3;
 	}
 
-	boolean getIsAnswerCorrect(){
+	boolean isAnswerCorrect(){
 		return this.isAnswerCorrect;
 	}
 
