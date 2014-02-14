@@ -25,7 +25,7 @@ public class JAnimalImagePanel extends JPanel{
        } catch (IOException e) {
     	   e.printStackTrace();
        } catch (HeadlessException e) {
-			e.printStackTrace();
+           e.printStackTrace();
 	   } 
     }
     
